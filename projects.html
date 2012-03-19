@@ -1,0 +1,60 @@
+---
+layout: page
+title: Projects
+group: navigation
+---
+{% include JB/setup %}
+
+<h3>This is a list of open-source projects on which I am working.</h3>
+<p/>
+
+<div id="github-projects">
+</div>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+  jQuery.githubUser = function(username, callback) {
+    jQuery.getJSON("https://api.github.com/users/" + username + "/repos?callback=?", callback);
+  }
+  
+  jQuery.writeProjectDiv = function() {
+    $('#github-projects').append("\
+<div class='full'>\
+<p class='repostats-link'>\
+<a class='watchers' href='"+ this.html_url +"/watchers'>"+this.watchers+" watchers</a>\
+<a class='forks' href='"+ this.html_url +"/network'>"+this.forks+" forks</a>\
+</p>\
+<h2 class='repo-title'><a href='" + this.html_url + "'>" + this.name + "</a></h2>\
+<div class='repo-content full-content'>"+this.description+"</div>\
+<div class='clear'></div>\
+</div>\
+<div class='rule'><hr/></div>");
+  }
+
+  $('#github-projects').html('');
+  
+  <!-- Projects I am contributing to -->
+  
+  jQuery.getJSON("https://api.github.com/repos/commontk/CTK?callback=?", function(data) {
+    $.writeProjectDiv.apply(data.data);
+  });
+  
+  jQuery.getJSON("https://api.github.com/repos/MITK/MITK?callback=?", function(data) {
+    $.writeProjectDiv.apply(data.data);
+  });
+  
+  <!-- My own projects -->
+  
+  $.githubUser('{{site.author.github}}', function(data) {
+    var repos = data.data;
+    repos = repos.filter(function(element, index, array) {
+      return !element.fork && element.name != '{{site.author.github}}.github.com';
+    });
+    
+    repos.sort(function(a,b) {
+      return b.watchers - a.watchers;
+    });
+
+    $(repos).each($.writeProjectDiv);
+  });
+</script>
