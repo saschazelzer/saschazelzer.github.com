@@ -44,6 +44,33 @@
       <div class="content">
         {{ content }}
       </div>
+      <div id="sidebar">
+        <div id="carrington-subscribe" class="widget">
+          <h2 class="widget-title">Subscribe</h2>
+          <a class="feed alignright" title="RSS 2.0 feed for posts" rel="alternate" href="http://feeds.feedburner.com/cppmicroservicesblog">
+            <img src="{{ASSET_PATH}}/img/feed-icon.png" alt="latest posts" title="latest posts">
+          </a>
+        </div>
+        <div class="widget">
+          <h2 class="widget-title">Recent Posts</h2>
+          <ul>
+            {% for post in site.posts limit:10 %}
+            <li>
+              <a href="{{ post.url }}" title="{{ post.title }}" rel="bookmark">{{ post.title }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+          <div class="clear"></div>
+        </div>
+        <div class="widget">
+          <h2 class="widget-title">Categories</h2>
+          <ul>
+            {% for category in site.categories %}
+            <li><a href="{{BASE_PATH}}/categories.html#{{category | first}}-ref">{{category | first}} ({{category | last | size }})</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
 
       <footer>
         <p>&copy; {{ site.author.name }} 2012 
