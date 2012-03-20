@@ -13,9 +13,6 @@ group: navigation
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" charset="utf-8">
-  jQuery.githubUser = function(username, callback) {
-    jQuery.getJSON("https://api.github.com/users/" + username + "/repos?callback=?", callback);
-  }
   
   jQuery.writeProjectDiv = function() {
     $('#github-projects').append("\
@@ -33,28 +30,27 @@ group: navigation
 
   $('#github-projects').html('');
   
-  <!-- Projects I am contributing to -->
-  
-  jQuery.getJSON("https://api.github.com/repos/commontk/CTK?callback=?", function(data) {
-    $.writeProjectDiv.apply(data.data);
-  });
-  
-  jQuery.getJSON("https://api.github.com/repos/MITK/MITK?callback=?", function(data) {
-    $.writeProjectDiv.apply(data.data);
-  });
-  
-  <!-- My own projects -->
-  
-  $.githubUser('{{site.author.github}}', function(data) {
+  <!-- Get all my Github projects -->
+  jQuery.getJSON("https://api.github.com/users/{{site.author.github}}/repos?callback=?", function(data) {
     var repos = data.data;
+    <!-- Only display original repos -->
     repos = repos.filter(function(element, index, array) {
       return !element.fork && element.name != '{{site.author.github}}.github.com';
     });
     
-    repos.sort(function(a,b) {
-      return b.watchers - a.watchers;
-    });
+    <!-- Manually add CTK -->
+    jQuery.getJSON("https://api.github.com/repos/commontk/CTK?callback=?", function(data) {
+      repos.push(data.data);
+      
+      <!-- Manually add MITK -->
+      jQuery.getJSON("https://api.github.com/repos/MITK/MITK?callback=?", function(data) {
+        repos.push(data.data);
+        repos.sort(function(a,b) {
+          return b.watchers - a.watchers;
+        });
 
-    $(repos).each($.writeProjectDiv);
+        $(repos).each($.writeProjectDiv);
+      });
+    });
   });
 </script>
