@@ -62,6 +62,11 @@ html, body {
   width: 180px;
 }
 
+#sidebar h4 {
+  font-size: 12px;
+  font-weight: bold;
+}
+
 .widget {
   margin-bottom:18px;
   overflow:hidden;
@@ -145,28 +150,29 @@ h2.widget-title,
 /* tag_box ======================================================== */
 
 .tag_box {
-	list-style:none;
-	margin:0;
-	padding:5px 0 ;
-	overflow:hidden;
+  list-style:none;
+  margin:0;
+  padding:5px 0 ;
+  overflow:hidden;
 }
 .tag_box li {
-	line-height:28px;
+  line-height:28px;
 }
 .tag_box.inline li {
-	float:left;
+  float:left;
+  line-height: 12px;
 }
 .tag_box a {
-	padding: 3px 6px;
-	margin: 2px;
-	background: #eee;
-	color:#005F6B;
-	border-radius: 3px;
-	text-decoration:none;
+  padding: 3px 6px;
+  margin: 2px;
+  background: #eee;
+  color:#005F6B;
+  border-radius: 3px;
+  text-decoration:none;
 }
-.tag_box a span{
-	vertical-align:super;
-	font-size:0.8em;
+.tag_box a span {
+  vertical-align:super;
+  font-size:0.8em;
 }
 .tag_box a.active {
 	background:#57A957;

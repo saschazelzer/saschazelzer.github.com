@@ -51,6 +51,19 @@
             <img src="{{ASSET_PATH}}/img/feed-icon.png" alt="latest posts" title="latest posts">
           </a>
         </div>
+        {% if page.type == "post" %}
+        <div class="widget">
+          <h2 class="widget-title">Published</h2>
+          <div class="date"><span>{{ page.date | date_to_long_string }}</span></div>
+          {% unless page.tags == empty %}
+          <h4>Tags</h4>
+          <ul class="tag_box inline">
+            {% assign tags_list = page.tags %}
+            {% include JB/tags_list %}
+          </ul>
+          {% endunless %}  
+        </div>
+        {% endif %}
         <div class="widget">
           <h2 class="widget-title">Recent Posts</h2>
           <ul>
