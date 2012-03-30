@@ -69,7 +69,7 @@
           <ul>
             {% for post in site.posts limit:10 %}
             <li>
-              <a href="{{ post.url }}" title="{{ post.title }}" rel="bookmark">{{ post.title }}</a>
+              <a href="{{ post.url }}" title="{{ post.title }}" rel="bookmark">{{ post.title }}</a><br/>({{ post.date | date_to_string }})
             </li>
             {% endfor %}
           </ul>
