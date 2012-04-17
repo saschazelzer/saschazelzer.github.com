@@ -50,7 +50,7 @@ People like the OSGi service layer so much that recently (in the year 2011) the 
 [another blog post](http://www.osgi.org/blog/2011/04/osgi-lite_05.html "OSGi Lite") from Peter Kriens about it). It essentially
 is a service registry (like specified in the OSGi specs) without an OSGi framework, especially without the module layer. A Java
 project based on this idea has been created by Karl Pauls, called [PojoSR][pojosr] (Pojo Service Registry).
-You might also might interest in these slides: [PojoSR or (OSGi) uServices for the rest of us](http://www.slideshare.net/OSGiUsers/pojosr-or-osgi-services-for-the-rest-of-us).
+You might also be interested in these slides: [PojoSR or (OSGi) uServices for the rest of us](http://www.slideshare.net/OSGiUsers/pojosr-or-osgi-services-for-the-rest-of-us).
 
 By not requireing a running (OSGi) framework, the OSGi service layer can now be put to good use in existing projects step-by-step.
 After having converted direct method calls between Jar files to a service model, the migration to a full
