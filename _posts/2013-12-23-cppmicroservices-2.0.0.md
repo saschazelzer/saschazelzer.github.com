@@ -30,7 +30,7 @@ The following paragraphs demonstrate the usage of the main new features and chan
 ### No service base class
 
 Version 1.0.0 required service implementations to inherit from a common base class. This requirement
-has been removed and services now just need to inherit from the interfaces agains which they will
+has been removed and services now just need to inherit from the interfaces against which they will
 be registered with the service registry:
 
 {% highlight cpp %}
@@ -98,13 +98,16 @@ class MyServicePrototypeFactory : public us::PrototypeServiceFactory
 {
 public:
 
-  us::InterfaceMap GetService(us::Module* /*caller*/, const us::ServiceRegistrationBase& /*reg*/)
+  us::InterfaceMap GetService(us::Module* /*caller*/,
+                              const us::ServiceRegistrationBase& /*reg*/)
   {
     MyService* service = new MyService();
     return us::MakeInterfaceMap<MyInterface>(service);
   }
 
-  void UngetService(us::Module* /*caller*/, const us::ServiceRegistrationBase& /*reg*/, const us::InterfaceMap& service)
+  void UngetService(us::Module* /*caller*/,
+                    const us::ServiceRegistrationBase& /*reg*/,
+                    const us::InterfaceMap& service)
   {
     delete us::ExtractInterface<MyInterface>(service);
   }
@@ -113,11 +116,13 @@ public:
 // Register the prototype factory
 us::ModuleContext* context = us::GetModuleContext();
 us::ServiceFactory* myPrototypeFactory = new MyServicePrototypeFactory();
-us::ServiceRegistration<MyInterface> reg = context->RegisterService<MyInterface>(myPrototypeFactory);
+us::ServiceRegistration<MyInterface> reg =
+    context->RegisterService<MyInterface>(myPrototypeFactory);
 
 // Get new service instances based on the prototype
 us::ServiceReference<MyInterface> ref = context->GetServiceReference<MyInterface>();
-if (ref.GetProperty(us::ServiceConstants::SERVICE_SCOPE()).ToString() != us::ServiceConstants::SCOPE_PROTOTYPE())
+if (ref.GetProperty(us::ServiceConstants::SERVICE_SCOPE()).ToString() !=
+    us::ServiceConstants::SCOPE_PROTOTYPE())
 {
   // Not a prototype scope service. Keep going or bail out ...
 }
@@ -136,7 +141,7 @@ delete myPrototypeFactory;
 Breaking changes
 ----------------
 
-Version 2.0.0 introduces a couple of [https://github.com/saschazelzer/CppMicroServices/wiki/API-changes-in-version-2.0.0](breaking API changes)
+Version 2.0.0 introduces a couple of [breaking API changes](https://github.com/saschazelzer/CppMicroServices/wiki/API-changes-in-version-2.0.0)
 compared to version 1.0.0. Please ask for support in the [CppMicroservices Forum](http://forum.cppmicroservices.org/)
 if you have trouble with migrating to version 2.0.0.
 
